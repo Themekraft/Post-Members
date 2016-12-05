@@ -46,6 +46,9 @@ class TK_Post_Members {
 		// Load the plugin translation files
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
 
+		// Admin js
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 1002, 1 );
+
 	}
 
 	/**
@@ -56,7 +59,9 @@ class TK_Post_Members {
 	 */
 
 	public function init_hook() {
+
 		do_action( 'tk_pm_init' );
+
 	}
 
 	/**
@@ -101,6 +106,42 @@ class TK_Post_Members {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain( 'tk-pm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
+	}
+
+	/**
+	 * Enqueue the needed JS for the admin screen
+	 *
+	 * @package post members
+	 * @since 0.1
+	 *
+	 * @param $hook_suffix
+	 */
+	function admin_js( $hook_suffix ) {
+		global $post;
+
+//		if (
+//			( isset( $post ) && $post->post_type == 'buddyforms' && isset( $_GET['action'] ) && $_GET['action'] == 'edit'
+//			  || isset( $post ) && $post->post_type == 'buddyforms' && $hook_suffix == 'post-new.php' )
+//			//|| isset($_GET['post_type']) && $_GET['post_type'] == 'buddyforms'
+//			|| $hook_suffix == 'buddyforms-page-bf-add_ons'
+//			|| $hook_suffix == 'buddyforms-page-bf-settings'
+//			|| $hook_suffix == 'buddyforms-page-bf-submissions'
+//			|| $hook_suffix == 'buddyforms_page_buddyforms-pricing'
+//		) {
+
+			wp_enqueue_script( 'jQuery' );
+			wp_enqueue_script( 'jquery-ui-sortable' );
+			wp_enqueue_script( 'jquery-ui-accordion' );
+			wp_enqueue_script( 'jquery-ui-dialog' );
+			wp_enqueue_script( 'jquery-ui-tabs' );
+
+			wp_enqueue_script( 'tk-pm-admin-js', plugins_url( 'assets/admin/admin.js', __FILE__ ), array( 'jquery' ) );
+			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
+
+			wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
+			wp_enqueue_style( 'tk-pm-select2-css', plugins_url( 'assets/resources/select2/dist/css/select2.min.css', __FILE__ ) );
+//		}
 
 	}
 
