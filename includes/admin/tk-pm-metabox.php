@@ -105,17 +105,21 @@ function tk_pm_user_search() {
 		'search'         => '*'.esc_attr( $term ).'*',
 		'search_columns' => array(
 			'user_login',
+			'ID',
 			'user_nicename',
 			'user_email',
 			'user_url',
 		),
 	) );
 
+
 	// User Loop
 	if ( ! empty( $users->results ) ) {
 		foreach ( $users->results as $user ) {
-			$json[$user->ID]['ID'] = $user->ID;
+			$json[$user->ID]['id'] = $user->ID;
 			$json[$user->ID]['display_name'] = $user->display_name;
+			$json[$user->ID]['user_email'] = $user->user_email;
+			$json[$user->ID]['avatar_url'] = get_avatar_url($user->ID);
 		}
 	}
 
