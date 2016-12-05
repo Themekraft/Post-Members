@@ -1,7 +1,7 @@
-=== BuddyForms Custom Post Types ===
+=== Post Members ===
 Contributors: svenl77
 Author: Sven Lehnert
-Plugin URI: http://buddyforms.com/downloads/buddyforms-rtmedia/
+Plugin URI: http://themekraft.com/
 Description: Crete new Custom Post Typed Form BuddyForms Forms
 Stable tag: 0.1
 Requires at least: 3.9
