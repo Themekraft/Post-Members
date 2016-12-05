@@ -110,10 +110,13 @@ function tk_pm_user_search() {
 			'user_url',
 		),
 	) );
-	$users_found = $users->get_results();
 
-	foreach( $users_found as $user_id => $user ){
-		$json[]['archive_url'] = $user->ID;
+	// User Loop
+	if ( ! empty( $users->results ) ) {
+		foreach ( $users->results as $user ) {
+			$json[$user->ID]['ID'] = $user->ID;
+			$json[$user->ID]['display_name'] = $user->display_name;
+		}
 	}
 
 
