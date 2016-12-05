@@ -1,41 +1,11 @@
 
-var tk_pm_select = jQuery.fn.select2;
-delete jQuery.fn.select2;
+// Select2 Version 4 ???
+//var tk_pm_select = jQuery.fn.select2;
+//delete jQuery.fn.select2;
 
 jQuery(document).ready(function () {
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // User Accordion
     jQuery( "#tk-pm-sortable" ).sortable({
             revert: true
         });
@@ -47,46 +17,26 @@ jQuery(document).ready(function () {
     jQuery( "ul, li" ).disableSelection();
 
 
-
-
+    // Add new Member from select2 to the Sortable list
     jQuery(document).on('click', '.tk-pm-add-member', function () {
 
+        var user = new Array();
 
+        user.id = jQuery(this).attr('data-id');
+        user.display_name = jQuery(this).attr('data-display_name');
+        user.user_email = jQuery(this).attr('data-user_email');
+        user.avatar_url = jQuery(this).attr('data-avatar_url');
 
-        var repo = new Array();
+        jQuery("#tk-pm-sortable").append(formatUser_html(user));
 
-        repo.id = jQuery(this).attr('data-id');
-        repo.display_name = jQuery(this).attr('data-display_name');
-        repo.user_email = jQuery(this).attr('data-user_email');
-        repo.avatar_url = jQuery(this).attr('data-avatar_url');
-
-        //console.log(repo);
-
-        jQuery("#tk-pm-sortable").append(formatRepo_html(repo));
-
-
+        jQuery('#tk-pm-search').bind('mousedown');
         return false;
     });
 
+    jQuery("#tk-pm-search").select2({
 
-
-
-
-
-
-
-
-
-
-
-
-
-    tk_pm_select.call(jQuery(".js-data-example-ajax").select2({
-        placeholder: {
-            id: "123",
-            placeholder: "Leave blank to ..."
-        },
-        allowClear: false,
+        placeholder: "Search for user",
+        allowClear: true,
         ajax: {
             type: 'POST',
             dataType: "json",
@@ -100,67 +50,55 @@ jQuery(document).ready(function () {
             },
             processResults: function (data, params) {
                 var items = new Array();
-                items.placeholder =  Array({
-                    id: "123",
-                    placeholder: "Leave blank to ..."
-                });
-                items.id = 123;
+
                 jQuery.each(data, function (i, val) {
-                        //jQuery.each(val, function (i2, val2) {
-                        //    items.push(val2);
-                        //});
                     items.push(val);
                 });
 
                 params.page = params.page || 1;
 
-                console.log(data);
-                console.log(items);
-                //items.id = 'id';
                 return {
                     results: items,
                     //pagination: {
                     //    more: (params.page * 30) < items
                     //}
                 };
-            },
-            cache: true
+            }
         },
         templateResult: function(item) {
-            /* FIX */
-            if (item.placeholder) return item.placeholder;
-            return formatRepo(item);
+            return formatUser(item);
         },
-        templateSelection: function (item) {
-            /* FIX */
-            if (item.placeholder) return item.placeholder;
-            return formatRepoSelection(item);
+        formatSelection: function(item) {
+            return item.id;
         },
-        escapeMarkup: function (markup) { return markup; }, // let our custom formatter work
-        minimumInputLength: 3,
-        //templateResult: formatRepo, // omitted for brevity, see the source of this page
-    }));
-
+        escapeMarkup: function(m) {
+            return m;
+        },
+        minimumInputLength: 1,
+    });
+    jQuery('#tk-pm-search').unbind('mouseenter mouseleave');
+    jQuery('#tk-pm-search').off('hover');
 });
 
-function formatRepo (repo) {
-    if (repo.loading) return repo.text;
+function formatUser (user) {
+    if (user.loading) return user;
 
-    return formatRepo_html(repo);
+    return formatUser_html(user);
 }
 
-function formatRepo_html(repo) {
+function formatUser_html(user) {
 
-    return '<li class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
+    markup = '<li class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
         '<div class="select2-result-user clearfix"> ' +
-        '<div class="select2-result-repository__avatar"><img src="' + repo.avatar_url + '"></div> ' +
-        '<div class="select2-result-repository__meta"> ' +
-        '<div class="select2-result-repository__display_name">' + repo.display_name + '</div> ' +
-        '<div class="select2-result-repository__user_email">' + repo.user_email + '</div> ' +
-        '<div class="select2-result-repository__actions"> ' +
-        '<div class="select2-result-repository__add"><a data-id="' + repo.id + '" data-avatar_url="' + repo.avatar_url + '" data-display_name="' + repo.display_name + '" data-user_email="' + repo.user_email + '" data-id="' + repo.id + '"href="#" class="tk-pm-add-member">Add Member</a> </div> ' +
+        '<div class="select2-result-user__avatar"><img src="' + user.avatar_url + '"></div> ' +
+        '<div class="select2-result-user__meta"> ' +
+        '<div class="select2-result-user__display_name">' + user.display_name + '</div> ' +
+        '<div class="select2-result-user__user_email">' + user.user_email + '</div> ' +
+        '<div class="select2-result-user__actions"> ' +
+        '<div class="select2-result-user__add"><a data-id="' + user.id + '" data-avatar_url="' + user.avatar_url + '" data-display_name="' + user.display_name + '" data-user_email="' + user.user_email + '" data-id="' + user.id + '"href="#" class="tk-pm-add-member">Add Member</a> </div> ' +
         '</div> ' +
         '</div> ' +
         '</div> ' +
         '</li>';
+    return markup;
 }

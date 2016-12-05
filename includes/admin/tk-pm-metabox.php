@@ -28,47 +28,13 @@ function tk_pm_post_edit_metabox() {
 	print_r($post_members);
 	?>
 
-	<select class="js-data-example-ajax" style="width:100%"></select>
+	<select id="tk-pm-search" style="width:100%">
+		<option></option>
+	</select>
 
 
-	<ul id="tk-pm-sortable">
-
-
-		<li class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false">
-			<div class="select2-result-repository clearfix">
-				<div class="select2-result-repository__avatar"><img
-						src="https://avatars.githubusercontent.com/u/1609975?v=3"></div>
-				<div class="select2-result-repository__meta">
-					<div class="select2-result-repository__title">dart-lang/test</div>
-					<div class="select2-result-repository__description">A library for writing unit tests in Dart.</div>
-					<div class="select2-result-repository__statistics">
-						<div class="select2-result-repository__forks"><i class="fa fa-flash"></i> 73 Forks</div>
-						<div class="select2-result-repository__stargazers"><i class="fa fa-star"></i> 73 Stars</div>
-						<div class="select2-result-repository__watchers"><i class="fa fa-eye"></i> 73 Watchers</div>
-					</div>
-				</div>
-			</div>
-		</li>
-		<li class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false">
-			<div class="select2-result-repository clearfix">
-				<div class="select2-result-repository__avatar"><img
-						src="https://avatars.githubusercontent.com/u/1609975?v=3"></div>
-				<div class="select2-result-repository__meta">
-					<div class="select2-result-repository__title">dart-lang/test</div>
-					<div class="select2-result-repository__description">A library for writing unit tests in Dart.</div>
-					<div class="select2-result-repository__statistics">
-						<div class="select2-result-repository__forks"><i class="fa fa-flash"></i> 73 Forks</div>
-						<div class="select2-result-repository__stargazers"><i class="fa fa-star"></i> 73 Stars</div>
-						<div class="select2-result-repository__watchers"><i class="fa fa-eye"></i> 73 Watchers</div>
-					</div>
-				</div>
-			</div>
-		</li>
-
-
-	</ul>
+	<ul id="tk-pm-sortable"></ul>
 	<?php
-
 
 }
 
@@ -98,9 +64,10 @@ add_action( 'save_post', 'tk_pm_post_edit_metabox_save' );
 
 function tk_pm_user_search() {
 
-
+	// Get search term
 	$term = $_POST['term'];
 
+	// Search user
 	$users = new WP_User_Query( array(
 		'search'         => '*'.esc_attr( $term ).'*',
 		'search_columns' => array(
@@ -112,7 +79,6 @@ function tk_pm_user_search() {
 		),
 	) );
 
-
 	// User Loop
 	if ( ! empty( $users->results ) ) {
 		foreach ( $users->results as $user ) {
@@ -122,7 +88,6 @@ function tk_pm_user_search() {
 			$json[$user->ID]['avatar_url'] = get_avatar_url($user->ID);
 		}
 	}
-
 
 	echo json_encode( $json );
 	die();
