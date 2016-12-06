@@ -78,17 +78,18 @@ function tk_pm_post_edit_metabox_save( $post_id ) {
 		return;
 	}
 
-//	if( ! isset( $_POST['_tk_post_members'] ) ){
-//		return;
-//	}
+	if( ! isset( $_POST['_tk_post_members'] ) ){
+		update_post_meta( $post_id, '_tk_post_members', '' );
+		return;
+	}
 
 	// Delete all user relation
 	wp_delete_object_term_relationships($post_id, 'tk_pm_relation');
 
 
-	if ( ! isset( $_POST['_tk_post_members'] ) ) {
-		update_post_meta( $post_id, '_tk_post_members', '' );
-	}
+//	if ( ! isset( $_POST['_tk_post_members'] ) ) {
+//		update_post_meta( $post_id, '_tk_post_members', '' );
+//	}
 
 	$post_members = $_POST['_tk_post_members'];
 
