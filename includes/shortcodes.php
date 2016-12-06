@@ -52,8 +52,6 @@ function tk_pm_list_members( $atts ) {
 
 	$post_members = get_post_meta( $post_id, '_tk_post_members', true );
 
-
-
 	if ( isset( $post_members ) || is_array( $post_members ) ) {
 		ob_start(); ?>
 		<ul>

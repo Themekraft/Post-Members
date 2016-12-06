@@ -37,7 +37,7 @@ function tk_pm_post_edit_metabox() {
 		<option></option>
 	</select>
 
-	<?php if ( isset( $post_members ) || is_array( $post_members ) ) { ?>
+	<?php if ( isset( $post_members ) && is_array( $post_members ) ) { ?>
 		<ul id="tk-pm-sortable">
 			<?php foreach ( $post_members as $member ) {
 				$user_data = get_userdata( $member )
