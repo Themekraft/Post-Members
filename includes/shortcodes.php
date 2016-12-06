@@ -1,9 +1,15 @@
 <?php
 
 function tk_pm_list_members( $atts ) {
+	global $post;
 	extract(shortcode_atts( array(
 		'post_id' => '',
 	), $atts ));
+
+
+	if(empty($post_id)){
+		$post_id = $post->ID;
+	}
 
 	$post_members = get_post_meta( $post_id, '_tk_post_members', true );
 
