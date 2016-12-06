@@ -1,8 +1,9 @@
 <?php
 
-//
-// Post metabox to display members management in the post type edit screen
-//
+/**
+ * Post metabox to display members management in the post type edit screen
+ *
+ */
 function tk_pm_post_metabox() {
 	global $post;
 
@@ -21,9 +22,10 @@ function tk_pm_post_metabox() {
 
 add_action( 'add_meta_boxes', 'tk_pm_post_metabox' );
 
-//
-// Metabox content
-//
+/**
+ * Metabox content
+ *
+ */
 function tk_pm_post_edit_metabox() {
 	global $post;
 
@@ -67,10 +69,10 @@ function tk_pm_post_edit_metabox() {
 
 }
 
-//
-// Save the metabox data
-//
+
 /**
+ * Save the metabox data
+ *
  * @param $post_id
  */
 function tk_pm_post_edit_metabox_save( $post_id ) {
@@ -79,12 +81,23 @@ function tk_pm_post_edit_metabox_save( $post_id ) {
 		return;
 	}
 
+	// Delete all user relation
+	wp_delete_object_term_relationships($post_id, 'tk_pm_relation');
+
+
 	if ( ! isset( $_POST['_tk_post_members'] ) ) {
 		return;
 	}
 
 	$post_members = $_POST['_tk_post_members'];
 
+
+	// Set new user relation
+	foreach( $post_members as $member ){
+		wp_set_object_terms( $post_id, $member, 'tk_pm_relation', true );
+	}
+
+	// Add user relation array to the post meta
 	if ( $post_members ) {
 		update_post_meta( $post_id, '_tk_post_members', $post_members );
 	}

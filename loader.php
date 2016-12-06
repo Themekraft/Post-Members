@@ -46,6 +46,9 @@ class TK_Post_Members {
 		// Load the plugin translation files
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ), 10, 1 );
 
+		// Create Taxonomies
+		add_action( 'init', array( $this, 'create_taxonomies' ), 0 );
+
 		// Admin js
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 1002, 1 );
 
@@ -151,6 +154,13 @@ class TK_Post_Members {
 
 	}
 
+	/**
+	 * Enqueue the needed JS for the front
+	 *
+	 * @package post members
+	 * @since 0.1
+	 *
+	 */
 	function front_js(){
 		global $post;
 
@@ -158,6 +168,28 @@ class TK_Post_Members {
 		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tk_pm_list_members' ) ) {
 			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
 		}
+
+	}
+
+	/**
+	 * Create Taxonomy for teh post user relationship
+	 *
+	 * @package post members
+	 * @since 0.1
+	 *
+	 */
+	function create_taxonomies() {
+
+		$tk_pm_post_types = get_option( 'tk_pm_post_types',  true );
+
+		register_taxonomy('tk_pm_relation', $tk_pm_post_types, array(
+			'hierarchical' => true,
+			'label' => 'Post Members',
+			'query_var' => 'tk_pm_relation',
+			'public' => false,
+			'show_ui' => false,
+			'show_admin_column' => false,
+		) );
 
 	}
 
