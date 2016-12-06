@@ -49,7 +49,11 @@ class TK_Post_Members {
 		// Admin js
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 1002, 1 );
 
+		// Front css
+		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 1002, 1 );
+
 	}
+
 
 	/**
 	 * Defines tk_post_members action
@@ -93,6 +97,7 @@ class TK_Post_Members {
 
 		require_once( TK_PM_INCLUDES_PATH . '/admin/tk-pm-metabox.php' );
 		require_once( TK_PM_INCLUDES_PATH . '/admin/tk-pm-admin.php' );
+		require_once( TK_PM_INCLUDES_PATH . '/shortcodes.php' );
 
 	}
 
@@ -143,6 +148,16 @@ class TK_Post_Members {
 			wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
 			wp_enqueue_style( 'tk-pm-select2-css', plugins_url( 'assets/resources/select2/dist/css/select2.min.css', __FILE__ ) );
 //		}
+
+	}
+
+	function front_js(){
+		global $post;
+
+		// check the post content for the short code
+		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tk_pm_list_members' ) ) {
+			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
+		}
 
 	}
 

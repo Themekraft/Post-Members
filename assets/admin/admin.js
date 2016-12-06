@@ -1,4 +1,3 @@
-
 // Select2 Version 4 ???
 //var tk_pm_select = jQuery.fn.select2;
 //delete jQuery.fn.select2;
@@ -6,15 +5,15 @@
 jQuery(document).ready(function () {
 
     // User Accordion
-    jQuery( "#tk-pm-sortable" ).sortable({
-            revert: true
-        });
-    jQuery( "#draggable" ).draggable({
-            connectToSortable: "#sortable",
-            helper: "clone",
-            revert: "invalid"
-        });
-    jQuery( "ul, li" ).disableSelection();
+    jQuery("#tk-pm-sortable").sortable({
+        revert: true
+    });
+    jQuery("#draggable").draggable({
+        connectToSortable: "#sortable",
+        helper: "clone",
+        revert: "invalid"
+    });
+    jQuery("ul, li").disableSelection();
 
 
     // Add new Member from select2 to the Sortable list
@@ -32,6 +31,11 @@ jQuery(document).ready(function () {
         jQuery('#tk-pm-search').bind('mousedown');
         return false;
     });
+    jQuery(document).on('click', '.tk-pm-remove-member', function () {
+        var id = jQuery(this).attr('data-id');
+        jQuery('#' + id).remove();
+    });
+
 
     jQuery("#tk-pm-search").select2({
 
@@ -65,13 +69,13 @@ jQuery(document).ready(function () {
                 };
             }
         },
-        templateResult: function(item) {
+        templateResult: function (item) {
             return formatUser(item);
         },
-        formatSelection: function(item) {
+        formatSelection: function (item) {
             return item.id;
         },
-        escapeMarkup: function(m) {
+        escapeMarkup: function (m) {
             return m;
         },
         minimumInputLength: 1,
@@ -80,7 +84,7 @@ jQuery(document).ready(function () {
     jQuery('#tk-pm-search').off('hover');
 });
 
-function formatUser (user) {
+function formatUser(user) {
     if (user.loading) return user;
 
     return formatUser_html(user);
@@ -88,7 +92,7 @@ function formatUser (user) {
 
 function formatUser_html(user) {
 
-    markup = '<li class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
+    markup = '<li id="' + user.id + '" class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
         '<div class="select2-result-user clearfix"> ' +
         '<div class="select2-result-user__avatar"><img src="' + user.avatar_url + '"></div> ' +
         '<div class="select2-result-user__meta"> ' +
@@ -99,6 +103,7 @@ function formatUser_html(user) {
         '</div> ' +
         '</div> ' +
         '</div> ' +
+        '<input type="hidden" value="' + user.id + '" name="_tk_post_members[]">' +
         '</li>';
     return markup;
 }
