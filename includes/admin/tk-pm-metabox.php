@@ -86,16 +86,16 @@ function tk_pm_post_edit_metabox_save( $post_id ) {
 
 
 	if ( ! isset( $_POST['_tk_post_members'] ) ) {
-		return;
+		update_post_meta( $post_id, '_tk_post_members', '' );
 	}
 
 	$post_members = $_POST['_tk_post_members'];
 
 
 	// Set new user relation
-	foreach( $post_members as $member ){
-		wp_set_object_terms( $post_id, $member, 'tk_pm_relation', true );
-	}
+//	foreach( $post_members as $member ){
+		wp_set_object_terms( $post_id, $post_members, 'tk_pm_relation', true );
+//	}
 
 	// Add user relation array to the post meta
 	if ( $post_members ) {

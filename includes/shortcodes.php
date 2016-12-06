@@ -1,5 +1,44 @@
 <?php
 
+function tk_pm_list_member_posts( $atts ) {
+	global $post;
+	extract(shortcode_atts( array(
+		'user_id' => '',
+		'post_type' => '',
+	), $atts ));
+
+
+	$args = array(
+		'post_type' => $post_type,
+		'tax_query' => array(
+			array(
+				'taxonomy' => 'tk_pm_relation',
+				'field'    => 'slug',
+				'terms'    => array( $user_id ),
+			),
+		),
+	);
+	$the_query = new WP_Query( $args );
+
+	ob_start();
+	if ( $the_query->have_posts() ) {
+		echo '<ul>';
+		while ( $the_query->have_posts() ) {
+			$the_query->the_post();
+			echo '<li>' . get_the_title() . '</li>';
+		}
+		echo '</ul>';
+		/* Restore original Post Data */
+		wp_reset_postdata();
+	} else {
+		echo 'No Posts Found';
+	}
+	$tmp = ob_get_clean();
+	return $tmp;
+}
+add_shortcode( 'tk_pm_list_member_posts', 'tk_pm_list_member_posts' );
+
+
 function tk_pm_list_members( $atts ) {
 	global $post;
 	extract(shortcode_atts( array(
