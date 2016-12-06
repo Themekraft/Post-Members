@@ -104,7 +104,20 @@ function tk_pm_settings_page_tabs_content() { ?>
 						<div class="postbox">
 							<h3><span><?php _e( 'Select the Post Types you like to have Post Members enabled', 'tk-pm' ); ?></span></h3>
 							<div class="inside">
-								<p>Mal Schauen</p>
+								<form method="post" action="options.php">
+
+									<?php settings_fields( 'tk_pm_post_types' ); ?>
+
+
+									<?php
+									$tk_pm_post_types = get_option('tk_pm_post_types', true);;
+									foreach ( get_post_types( '', 'names' ) as $post_type ) {
+										$checked = in_array($post_type, $tk_pm_post_types ) ? "checked" : "";
+										echo '<p><input ' . $checked . ' name="tk_pm_post_types[]" type="checkbox" value="' . $post_type . '">' . $post_type . '</p>';
+									}
+									?>
+									<?php submit_button(); ?>
+								</form>
 							</div><!-- .inside -->
 						</div><!-- .postbox -->
 					</div><!-- .metabox-holder -->
