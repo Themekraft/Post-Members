@@ -15,7 +15,6 @@ jQuery(document).ready(function () {
     });
     jQuery("ul, li").disableSelection();
 
-
     // Add new Member from select2 to the Sortable list
     jQuery(document).on('click', '.tk-pm-add-member', function () {
 
@@ -35,7 +34,6 @@ jQuery(document).ready(function () {
         var id = jQuery(this).attr('data-id');
         jQuery('#' + id).remove();
     });
-
 
     tk_pm_select.call(jQuery("#tk-pm-search").select2({
 
@@ -63,9 +61,9 @@ jQuery(document).ready(function () {
 
                 return {
                     results: items,
-                    //pagination: {
-                    //    more: (params.page * 30) < items
-                    //}
+                    pagination: {
+                        more: (params.page * 30) < items
+                    }
                 };
             }
         },
