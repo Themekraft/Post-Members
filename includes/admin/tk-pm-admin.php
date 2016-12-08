@@ -112,7 +112,7 @@ function tk_pm_settings_page_tabs_content() { ?>
 									<?php
 									$tk_pm_post_types = get_option('tk_pm_post_types', true);;
 									foreach ( get_post_types( '', 'names' ) as $post_type ) {
-										$checked = in_array($post_type, $tk_pm_post_types ) ? "checked" : "";
+										$checked = is_array($tk_pm_post_types) && in_array($post_type, $tk_pm_post_types ) ? "checked" : "";
 										echo '<p><input ' . $checked . ' name="tk_pm_post_types[]" type="checkbox" value="' . $post_type . '">' . $post_type . '</p>';
 									}
 									?>
