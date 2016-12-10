@@ -1,7 +1,6 @@
 // Select2 Version 4 ???
-var tk_pm_select = jQuery.fn.select2;
-delete jQuery.fn.select2;
 
+//
 jQuery(document).ready(function () {
 
     // User Accordion
@@ -35,7 +34,7 @@ jQuery(document).ready(function () {
         jQuery('#' + id).remove();
     });
 
-    tk_pm_select.call(jQuery("#tk-pm-search").select2({
+    jQuery("#tk-pm-search").pumSelect2({
 
         placeholder: "Search for user",
         allowClear: true,
@@ -77,7 +76,7 @@ jQuery(document).ready(function () {
             return m;
         },
         minimumInputLength: 1,
-    }));
+    });
     jQuery('#tk-pm-search').unbind('mouseenter mouseleave');
     jQuery('#tk-pm-search').off('hover');
 });

@@ -50,7 +50,7 @@ class TK_Post_Members {
 		add_action( 'init', array( $this, 'create_taxonomies' ), 0 );
 
 		// Admin js
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 1002, 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'admin_js' ), 1, 1 );
 
 		// Front css
 		add_action( 'wp_enqueue_scripts', array( $this, 'front_js' ), 1002, 1 );
@@ -151,7 +151,13 @@ class TK_Post_Members {
 			wp_enqueue_script( 'tk-pm-admin-js', plugins_url( 'assets/admin/admin.js', __FILE__ ), array( 'jquery' ) );
 			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
 
-			wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
+		wp_dequeue_style( 'select2' );
+		wp_deregister_style( 'select2' );
+
+		wp_dequeue_script( 'select2' );
+		wp_deregister_script( 'select2' );
+
+			wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.full.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
 			wp_enqueue_style( 'tk-pm-select2-css', plugins_url( 'assets/resources/select2/dist/css/select2.min.css', __FILE__ ) );
 //		}
 
