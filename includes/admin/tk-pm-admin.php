@@ -44,10 +44,10 @@ function tk_pm_admin_tabs( $current = 'homepage' ) {
 	$tabs = apply_filters( 'tk_pm_admin_tabs', $tabs );
 
 	echo '<h2 class="nav-tab-wrapper" style="padding-bottom: 0;">';
-		foreach ( $tabs as $tab => $name ) {
-			$class = ( $tab == $current ) ? ' nav-tab-active' : '';
-			echo "<a class='nav-tab$class' href='?page=tk_pm_settings&tab=$tab'>$name</a>";
-		}
+	foreach ( $tabs as $tab => $name ) {
+		$class = ( $tab == $current ) ? ' nav-tab-active' : '';
+		echo "<a class='nav-tab$class' href='?page=tk_pm_settings&tab=$tab'>$name</a>";
+	}
 	echo '</h2>';
 }
 
@@ -102,7 +102,9 @@ function tk_pm_settings_page_tabs_content() { ?>
 					$tk_pm_post_types = get_option( 'tk_pm_post_types' ); ?>
 					<div class="metabox-holder">
 						<div class="postbox">
-							<h3><span><?php _e( 'Select the Post Types you like to have Post Members enabled', 'tk-pm' ); ?></span></h3>
+							<h3>
+								<span><?php _e( 'Select the Post Types you like to have Post Members enabled', 'tk-pm' ); ?></span>
+							</h3>
 							<div class="inside">
 								<form method="post" action="options.php">
 
@@ -110,9 +112,9 @@ function tk_pm_settings_page_tabs_content() { ?>
 
 
 									<?php
-									$tk_pm_post_types = get_option('tk_pm_post_types', true);;
+									$tk_pm_post_types = get_option( 'tk_pm_post_types', true );;
 									foreach ( get_post_types( '', 'names' ) as $post_type ) {
-										$checked = is_array($tk_pm_post_types) && in_array($post_type, $tk_pm_post_types ) ? "checked" : "";
+										$checked = is_array( $tk_pm_post_types ) && in_array( $post_type, $tk_pm_post_types ) ? "checked" : "";
 										echo '<p><input ' . $checked . ' name="tk_pm_post_types[]" type="checkbox" value="' . $post_type . '">' . $post_type . '</p>';
 									}
 									?>
@@ -133,4 +135,5 @@ function tk_pm_settings_page_tabs_content() { ?>
 	<?php
 }
 
-function tk_pm_settings_page_sidebar() {}
+function tk_pm_settings_page_sidebar() {
+}

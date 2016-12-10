@@ -58,9 +58,6 @@ class TK_Post_Members {
 	}
 
 
-
-
-
 	/**
 	 * Defines tk_post_members action
 	 *
@@ -141,15 +138,15 @@ class TK_Post_Members {
 //			|| $hook_suffix == 'buddyforms_page_buddyforms-pricing'
 //		) {
 
-			wp_enqueue_script( 'jQuery' );
-			wp_enqueue_script( 'jquery-ui-sortable' );
-			wp_enqueue_script( 'jquery-ui-accordion' );
-			wp_enqueue_script( 'jquery-ui-draggable' );
-			wp_enqueue_script( 'jquery-ui-droppable' );
+		wp_enqueue_script( 'jQuery' );
+		wp_enqueue_script( 'jquery-ui-sortable' );
+		wp_enqueue_script( 'jquery-ui-accordion' );
+		wp_enqueue_script( 'jquery-ui-draggable' );
+		wp_enqueue_script( 'jquery-ui-droppable' );
 
 
-			wp_enqueue_script( 'tk-pm-admin-js', plugins_url( 'assets/admin/admin.js', __FILE__ ), array( 'jquery' ) );
-			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
+		wp_enqueue_script( 'tk-pm-admin-js', plugins_url( 'assets/admin/admin.js', __FILE__ ), array( 'jquery' ) );
+		wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
 
 		wp_dequeue_style( 'select2' );
 		wp_deregister_style( 'select2' );
@@ -157,8 +154,8 @@ class TK_Post_Members {
 		wp_dequeue_script( 'select2' );
 		wp_deregister_script( 'select2' );
 
-			wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.full.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
-			wp_enqueue_style( 'tk-pm-select2-css', plugins_url( 'assets/resources/select2/dist/css/select2.min.css', __FILE__ ) );
+		wp_enqueue_script( 'tk-pm-select2-js', plugins_url( 'assets/resources/select2/dist/js/select2.full.min.js', __FILE__ ), array( 'jquery' ), '4.0.3' );
+		wp_enqueue_style( 'tk-pm-select2-css', plugins_url( 'assets/resources/select2/dist/css/select2.min.css', __FILE__ ) );
 //		}
 
 	}
@@ -170,7 +167,7 @@ class TK_Post_Members {
 	 * @since 0.1
 	 *
 	 */
-	function front_js(){
+	function front_js() {
 		global $post;
 
 		// check the post content for the short code
@@ -189,14 +186,14 @@ class TK_Post_Members {
 	 */
 	function create_taxonomies() {
 
-		$tk_pm_post_types = get_option( 'tk_pm_post_types',  true );
+		$tk_pm_post_types = get_option( 'tk_pm_post_types', true );
 
-		register_taxonomy('tk_pm_relation', $tk_pm_post_types, array(
-			'hierarchical' => true,
-			'label' => 'Post Members',
-			'query_var' => 'tk_pm_relation',
-			'public' => false,
-			'show_ui' => false,
+		register_taxonomy( 'tk_pm_relation', $tk_pm_post_types, array(
+			'hierarchical'      => true,
+			'label'             => 'Post Members',
+			'query_var'         => 'tk_pm_relation',
+			'public'            => false,
+			'show_ui'           => false,
 			'show_admin_column' => false,
 		) );
 

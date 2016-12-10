@@ -11,11 +11,10 @@ function tk_pm_post_metabox() {
 	if ( ! ( $post instanceof WP_Post ) ) {
 		return;
 	}
-	$tk_pm_post_types = get_option('tk_pm_post_types', true);;
+	$tk_pm_post_types = get_option( 'tk_pm_post_types', true );;
 	foreach ( $tk_pm_post_types as $post_type ) {
 		add_meta_box( 'tk_pm_metabox', __( 'Post Members', 'tk-pm' ), 'tk_pm_post_edit_metabox', $post_type, 'normal', 'high' );
 	}
-
 
 
 }
@@ -80,11 +79,12 @@ function tk_pm_post_edit_metabox_save( $post_id ) {
 
 
 	// Delete all user relation
-	wp_delete_object_term_relationships($post_id, 'tk_pm_relation');
+	wp_delete_object_term_relationships( $post_id, 'tk_pm_relation' );
 
 
-	if( ! isset( $_POST['_tk_post_members'] ) ){
+	if ( ! isset( $_POST['_tk_post_members'] ) ) {
 		update_post_meta( $post_id, '_tk_post_members', '' );
+
 		return;
 	}
 
@@ -98,7 +98,7 @@ function tk_pm_post_edit_metabox_save( $post_id ) {
 
 	// Set new user relation
 //	foreach( $post_members as $member ){
-		wp_set_object_terms( $post_id, $post_members, 'tk_pm_relation', true );
+	wp_set_object_terms( $post_id, $post_members, 'tk_pm_relation', true );
 //	}
 
 	// Add user relation array to the post meta

@@ -2,13 +2,13 @@
 
 function tk_pm_list_member_posts( $atts ) {
 	global $post;
-	extract(shortcode_atts( array(
-		'user_id' => '',
+	extract( shortcode_atts( array(
+		'user_id'   => '',
 		'post_type' => '',
-	), $atts ));
+	), $atts ) );
 
 
-	$args = array(
+	$args      = array(
 		'post_type' => $post_type,
 		'tax_query' => array(
 			array(
@@ -34,19 +34,21 @@ function tk_pm_list_member_posts( $atts ) {
 		echo 'No Posts Found';
 	}
 	$tmp = ob_get_clean();
+
 	return $tmp;
 }
+
 add_shortcode( 'tk_pm_list_member_posts', 'tk_pm_list_member_posts' );
 
 
 function tk_pm_list_members( $atts ) {
 	global $post;
-	extract(shortcode_atts( array(
+	extract( shortcode_atts( array(
 		'post_id' => '',
-	), $atts ));
+	), $atts ) );
 
 
-	if(empty($post_id)){
+	if ( empty( $post_id ) ) {
 		$post_id = $post->ID;
 	}
 
@@ -69,7 +71,8 @@ function tk_pm_list_members( $atts ) {
 							<div class="select2-result-user__user_email"><?php echo $user_data->user_email ?></div>
 							<div class="select2-result-user__actions">
 								<div class="select2-result-user__add"><a data-id="<?php echo $user_data->ID ?>"
-								                                         class="tk-pm-remove-member">Any Action?</a></div>
+								                                         class="tk-pm-remove-member">Any Action?</a>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -84,4 +87,5 @@ function tk_pm_list_members( $atts ) {
 
 	return $tmp;
 }
+
 add_shortcode( 'tk_pm_list_members', 'tk_pm_list_members' );

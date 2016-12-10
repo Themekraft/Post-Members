@@ -1,6 +1,3 @@
-// Select2 Version 4 ???
-
-//
 jQuery(document).ready(function () {
 
     // User Accordion
