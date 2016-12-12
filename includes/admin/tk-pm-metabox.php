@@ -11,12 +11,13 @@ function tk_pm_post_metabox() {
 	if ( ! ( $post instanceof WP_Post ) ) {
 		return;
 	}
-	$tk_pm_post_types = get_option( 'tk_pm_post_types', true );;
-	foreach ( $tk_pm_post_types as $post_type ) {
-		add_meta_box( 'tk_pm_metabox', __( 'Post Members', 'tk-pm' ), 'tk_pm_post_edit_metabox', $post_type, 'normal', 'high' );
+	$tk_pm_post_types = get_option( 'tk_pm_post_types', true );
+
+	if(is_array($tk_pm_post_types)){
+		foreach ( $tk_pm_post_types as $post_type ) {
+			add_meta_box( 'tk_pm_metabox', __( 'Post Members', 'tk-pm' ), 'tk_pm_post_edit_metabox', $post_type, 'normal', 'high' );
+		}
 	}
-
-
 }
 
 add_action( 'add_meta_boxes', 'tk_pm_post_metabox' );
