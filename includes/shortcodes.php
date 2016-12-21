@@ -43,6 +43,11 @@ add_shortcode( 'tk_pm_list_member_posts', 'tk_pm_list_member_posts' );
 
 function tk_pm_get_list_members( $atts = array() ) {
 	global $post;
+
+	if(!is_user_logged_in()){
+		return;
+	}
+
 	extract( shortcode_atts( array(
 		'post_id' => '',
 	), $atts ) );
