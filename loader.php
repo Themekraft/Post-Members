@@ -101,6 +101,7 @@ class TK_Post_Members {
 		require_once( TK_PM_INCLUDES_PATH . '/admin/tk-pm-metabox.php' );
 		require_once( TK_PM_INCLUDES_PATH . '/admin/tk-pm-admin.php' );
 		require_once( TK_PM_INCLUDES_PATH . '/shortcodes.php' );
+		require_once( TK_PM_INCLUDES_PATH . '/functions.php' );
 
 	}
 
@@ -171,9 +172,9 @@ class TK_Post_Members {
 		global $post;
 
 		// check the post content for the short code
-		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tk_pm_list_members' ) ) {
+//		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tk_pm_list_members' ) ) {
 			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
-		}
+//		}
 
 	}
 

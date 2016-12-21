@@ -41,7 +41,7 @@ function tk_pm_list_member_posts( $atts ) {
 add_shortcode( 'tk_pm_list_member_posts', 'tk_pm_list_member_posts' );
 
 
-function tk_pm_list_members( $atts ) {
+function tk_pm_get_list_members( $atts = array() ) {
 	global $post;
 	extract( shortcode_atts( array(
 		'post_id' => '',
@@ -53,8 +53,8 @@ function tk_pm_list_members( $atts ) {
 	}
 
 	$post_members = get_post_meta( $post_id, '_tk_post_members', true );
-
-	if ( isset( $post_members ) || is_array( $post_members ) ) {
+	$tmp = '';
+	if ( isset( $post_members ) && is_array( $post_members ) ) {
 		ob_start(); ?>
 		<ul>
 			<?php foreach ( $post_members as $member ) {
@@ -88,4 +88,4 @@ function tk_pm_list_members( $atts ) {
 	return $tmp;
 }
 
-add_shortcode( 'tk_pm_list_members', 'tk_pm_list_members' );
+add_shortcode( 'tk_pm_list_members', 'tk_pm_get_list_members' );
