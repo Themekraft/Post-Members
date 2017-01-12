@@ -85,6 +85,7 @@ function tk_pm_get_list_members( $atts = array() ) {
                             <?php
                             $anrede = '';
                             $fields = '';
+                            $username = '';
                             //print_r($bpUserProfile);
                             foreach ($bpUserProfile as $key => $value) {
                                 //if(is_array($value)) echo $value['field_data'].'<br/>';
