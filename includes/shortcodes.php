@@ -57,8 +57,6 @@ function tk_pm_get_list_members( $atts = array() ) {
 		$post_id = $post->ID;
 	}
 
-
-
 	$post_members = get_post_meta( $post_id, '_tk_post_members', true );
 	$tmp = '';
 	if ( isset( $post_members ) && is_array( $post_members ) ) {
@@ -73,13 +71,13 @@ function tk_pm_get_list_members( $atts = array() ) {
 				<li id="user-<?php echo $user_data->ID ?>"
 				    class="select2-results__option select2-results__option--highlighted tk-post-member-item" role="treeitem"
 				    aria-selected="false">
-					<div class="select2-result-user clearfix">
-						<div class="select2-result-user__avatar">
+					<div class="row select2-result-user clearfix">
+						<div class="col-md-4 select2-result-user__avatar">
                             <a href="<?php echo $bpUser->user_url; ?>">
                             <?php echo $bpUser->avatar; ?>
                             </a>
                         </div>
-						<div class="select2-result-user__meta">
+						<div class="col-md-8 select2-result-user__meta">
 							<!--<div class="select2-result-user__display_name"><?php //echo $user_data->display_name ?></div>-->
 
                             <?php
@@ -106,8 +104,8 @@ function tk_pm_get_list_members( $atts = array() ) {
 
 							<div class="select2-result-user__actions">
 								<div class="select2-result-user__add">
-                                    <!-- /nutzerverzeichnis/daadmin/messages/compose/?r=inforiesatsbaucom-2-2-2-2 -->
-                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="tk-pm-remove-member">&gt; Profil</a>
+                                    <!-- http://dev.deutscher-abbruchverband.de/nutzerverzeichnis/ardsimmertaltonlinede/messages/compose/?r=A.R.D.+Simmertal+GmbH&_wpnonce=b4da385abf%20title= -->
+                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="btn btn-primary btn-small">Profil</a>
 								</div>
 							</div>
 						</div>
