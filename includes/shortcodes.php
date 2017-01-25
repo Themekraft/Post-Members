@@ -43,13 +43,14 @@ add_shortcode( 'tk_pm_list_member_posts', 'tk_pm_list_member_posts' );
 
 function tk_pm_get_list_members( $atts = array() ) {
 	global $post;
-
+    $column = "";
 	if(!is_user_logged_in()){
 		return;
 	}
 
 	extract( shortcode_atts( array(
 		'post_id' => '',
+        'column' => ''
 	), $atts ) );
 
 
@@ -61,6 +62,8 @@ function tk_pm_get_list_members( $atts = array() ) {
 	$tmp = '';
 	if ( isset( $post_members ) && is_array( $post_members ) ) {
 		ob_start(); ?>
+        <?php if ($column == 'right') : ?><hr/>
+        <h3>Angemeldete Firmenmitglieder</h3><?php endif; ?>
 		<ul class="tk-post-member-list">
 			<?php foreach ( $post_members as $member ) {
 				$user_data = get_userdata( $member );
@@ -71,14 +74,13 @@ function tk_pm_get_list_members( $atts = array() ) {
 				<li id="user-<?php echo $user_data->ID ?>"
 				    class="select2-results__option select2-results__option--highlighted tk-post-member-item" role="treeitem"
 				    aria-selected="false">
-					<div class="row select2-result-user clearfix">
-						<div class="col-md-4 select2-result-user__avatar">
+                    <?php if ($column != 'right') : ?><div class="row select2-result-user clearfix"><?php endif; ?>
+						<?php if ($column != 'right') : ?><div class="col-md-3"><?php endif; ?>
                             <a href="<?php echo $bpUser->user_url; ?>">
                             <?php echo $bpUser->avatar; ?>
                             </a>
-                        </div>
-						<div class="col-md-8 select2-result-user__meta">
-							<!--<div class="select2-result-user__display_name"><?php //echo $user_data->display_name ?></div>-->
+                        <?php if ($column != 'right') : ?></div>
+						<div class="col-md-9"><?php endif; ?>
 
                             <?php
                             $anrede = '';
@@ -86,32 +88,29 @@ function tk_pm_get_list_members( $atts = array() ) {
                             $username = '';
                             //print_r($bpUserProfile);
                             foreach ($bpUserProfile as $key => $value) {
-                                //if(is_array($value)) echo $value['field_data'].'<br/>';
-                                //echo $key.': '.$value.'<br/>';
+
                                 if($key == 'Name') $username = $value['field_data'];
                                 else if($key == 'Anrede' || $key == 'Titel' || $key == 'Vorname' || $key == 'Nachname') $anrede .= $value['field_data'].' ';
-                                else if($key == 'user_login' || $key == 'user_nicename' || $key == 'user_email') continue;
-                                else $fields .= $key.': '.$value['field_data'].'<br/>';
-                                //echo '<div class="select2-result-user__display">'.$field['field_data'].'</div>';
+                                else if($key == 'user_login' || $key == 'user_nicename' || $key == 'user_email' || $key == 'Nutzername') continue;
+                                else if($key == 'Telefonnummer' || $key == 'Fax' || $key == 'Email' || $key == 'Mobil') $fields .= '<span class="da-data '.$key.'">'.$value['field_data'].'</span><br/>';
+
+                                else $fields .= '<label class="da-small">'.$key.': </label> <span class="da-data">'.$value['field_data'].'</span><br/>';
                             }
-                            echo '<h3>'.$anrede.'</h3>';
-                            echo 'Nutzername: <a href="'.$bpUser->user_url.'">'.$username.'</a><br/>';
-                            echo $fields;
+                            echo '<h3 class="da-post-member-headline">'.$anrede.'</h3>';
+                            //echo 'Nutzername: '.$username.'<br/>';
+                            if ($column != 'right') echo $fields;
                             ?>
 
                             <!--<div class="select2-result-user__user_position"><?php echo $bpUserProfile['Aufgabenbereiche']['field_data'] ?></div>
 							<div class="select2-result-user__user_email"><?php echo $user_data->user_email ?></div>-->
 
-							<div class="select2-result-user__actions">
-								<div class="select2-result-user__add">
-                                    <!-- http://dev.deutscher-abbruchverband.de/nutzerverzeichnis/ardsimmertaltonlinede/messages/compose/?r=A.R.D.+Simmertal+GmbH&_wpnonce=b4da385abf%20title= -->
-                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="btn btn-primary btn-small">Profil</a>
-								</div>
-							</div>
-						</div>
-					</div>
+							<p class="readmore">
+                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="">&gt; Profil</a>
+							</p>
+                <?php if ($column != 'right') : ?></div>
+					</div><?php endif; ?>
 					<input type="hidden" value="<?php echo $user_data->ID ?>" name="_tk_post_members[]">
-                <hr/>
+                    <?php if ($column != 'right') : ?><hr/><?php endif; ?>
                 </li>
 
 				<?php
