@@ -9,6 +9,8 @@
  Author URI: https://profiles.wordpress.org/svenl77
  License: GPLv2 or later
  Network: false
+ Text Domain: tk_pm
+ Domain Path: /languages
 
  *****************************************************************************
  *
@@ -114,7 +116,7 @@ class TK_Post_Members {
 
 	public function load_plugin_textdomain() {
 
-		load_plugin_textdomain( 'tk-pm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'tk_pm', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 
 	}
 
@@ -129,15 +131,6 @@ class TK_Post_Members {
 	function admin_js( $hook_suffix ) {
 		global $post;
 
-//		if (
-//			( isset( $post ) && $post->post_type == 'buddyforms' && isset( $_GET['action'] ) && $_GET['action'] == 'edit'
-//			  || isset( $post ) && $post->post_type == 'buddyforms' && $hook_suffix == 'post-new.php' )
-//			//|| isset($_GET['post_type']) && $_GET['post_type'] == 'buddyforms'
-//			|| $hook_suffix == 'buddyforms-page-bf-add_ons'
-//			|| $hook_suffix == 'buddyforms-page-bf-settings'
-//			|| $hook_suffix == 'buddyforms-page-bf-submissions'
-//			|| $hook_suffix == 'buddyforms_page_buddyforms-pricing'
-//		) {
 
 		wp_enqueue_script( 'jQuery' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
@@ -172,9 +165,8 @@ class TK_Post_Members {
 		global $post;
 
 		// check the post content for the short code
-//		if ( is_a( $post, 'WP_Post' ) && has_shortcode( $post->post_content, 'tk_pm_list_members' ) ) {
 			wp_enqueue_style( 'tk-pm-admin-css', plugins_url( 'assets/admin/admin.css', __FILE__ ) );
-//		}
+
 
 	}
 

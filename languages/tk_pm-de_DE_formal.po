@@ -1,0 +1,42 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Post Members\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-16 08:16+0000\n"
+"PO-Revision-Date: 2017-03-16 08:17+0000\n"
+"Last-Translator: DA Admin <huck@huck-fresow.de>\n"
+"Language-Team: German (Formal)\n"
+"Language: de-DE-formal\n"
+"Plural-Forms: nplurals=2; plural=n != 1\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco - https://localise.biz/"
+
+#: includes/shortcodes.php:196
+msgid "Position"
+msgstr "Position im Unternehmen"
+
+#: includes/shortcodes.php:199
+msgid "Function"
+msgstr "Aufgabenbereiche"
+
+#. Name of the plugin
+msgid "Post Members"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add Members to Posts and display the Member's via Shortcode"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://github.com/Themekraft/post-members"
+msgstr ""
+
+#. Author of the plugin
+msgid "Sven Lehnert"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://profiles.wordpress.org/svenl77"
+msgstr ""
