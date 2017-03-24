@@ -227,6 +227,7 @@ function tk_pm_get_list_members_intern( $atts = array() ) {
 
             <?php foreach ( $post_members as $member ) {
                 $user_data = get_userdata( $member );
+                //print_r($user_data);
                 $bpUser = new BP_Core_User($user_data->ID);
                 $bpUserProfile = $bpUser->get_profile_data();
                 if($count%5 == 0) echo '<div class="row">';
@@ -253,11 +254,12 @@ function tk_pm_get_list_members_intern( $atts = array() ) {
 
                             else $fields .= '<label class="da-small">'.$key.': </label><br/><span class="da-data">'.$value['field_data'].'</span><br/>';
                         }
+                        if($anrede == '') $anrede = $user_data->display_name;
                         echo '<h3 class="da-post-member-headline">'.$anrede.'</h3>';
                         echo $fields.$mail;
                         ?>
                         <p class="readmore">
-                            <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="">&gt; <?php __('Profile', 'tk_pm' ); ?></a>
+                            <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="">&gt; <?php _e('Profile', 'tk_pm' ); ?></a>
                         </p>
                     </div>
 
