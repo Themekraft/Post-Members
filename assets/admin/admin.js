@@ -21,7 +21,8 @@ jQuery(document).ready(function () {
         user.user_email = jQuery(this).attr('data-user_email');
         user.avatar_url = jQuery(this).attr('data-avatar_url');
 
-        jQuery("#tk-pm-sortable").append(formatUser_html(user));
+        jQuery("#tk-pm-sortable").append(formatUser_html(user, 'in'));
+
 
         jQuery('#tk-pm-search').bind('mousedown');
         do_the_search();
@@ -44,17 +45,20 @@ function formatUser(user) {
     return formatUser_html(user);
 }
 
-function formatUser_html(user) {
+function formatUser_html(user, sel2 ) {
 
-    markup = '<li id="' + user.id + '" class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
+    markup = '<li style="height:60px;" id="' + user.id + '" class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
         '<div class="select2-result-user clearfix"> ' +
         '<div class="select2-result-user__avatar"><img src="' + user.avatar_url + '"></div> ' +
         '<div class="select2-result-user__meta"> ' +
         '<div class="select2-result-user__display_name">' + user.display_name + '</div> ' +
         '<div class="select2-result-user__user_email">' + user.user_email + '</div> ' +
         '<div class="select2-result-user__actions"> ' +
-        '<div class="select2-result-user__add"><a data-id="' + user.id + '" data-avatar_url="' + user.avatar_url + '" data-display_name="' + user.display_name + '" data-user_email="' + user.user_email + '" data-id="' + user.id + '"href="#" class="tk-pm-add-member">Add Member</a> </div> ' +
-        '</div> ' +
+        '<div class="select2-result-user__add"> ';
+        if(sel2 != 'in'){
+            markup = markup + '<a data-id="' + user.id + '" data-avatar_url="' + user.avatar_url + '" data-display_name="' + user.display_name + '" data-user_email="' + user.user_email + '" href="#" class="tk-pm-add-member">Add Member</a> </div> ';
+        }
+    markup = markup + '</div> ' +
         '</div> ' +
         '</div> ' +
         '<input type="hidden" value="' + user.id + '" name="_tk_post_members[]">' +
