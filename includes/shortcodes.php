@@ -69,6 +69,8 @@ function tk_pm_get_list_members( $atts = array() ) {
 				$user_data = get_userdata( $member );
                 $bpUser = new BP_Core_User($user_data->ID);
                 $bpUserProfile = $bpUser->get_profile_data();
+
+                if(!is_object($user_data)) continue;
 				?>
 				<li id="user-<?php echo $user_data->ID ?>"
 				    class="select2-results__option select2-results__option--highlighted tk-post-member-item" role="treeitem"
@@ -101,7 +103,7 @@ function tk_pm_get_list_members( $atts = array() ) {
 
 
 							<p class="readmore">
-                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="">&gt; <?php __('Profile', 'tk_pm' ); ?></a>
+                                    <a href="<?php echo $bpUser->user_url; ?>" data-id="<?php echo $user_data->ID ?>" class="">&gt; <?php _e('Profile', 'tk_pm' ); ?></a>
 							</p>
                 <?php if ($column != 'right') : ?></div>
 					</div><?php endif; ?>
