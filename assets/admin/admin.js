@@ -24,6 +24,7 @@ jQuery(document).ready(function () {
         jQuery("#tk-pm-sortable").append(formatUser_html(user));
 
         jQuery('#tk-pm-search').bind('mousedown');
+        do_the_search();
         return false;
     });
     jQuery(document).on('click', '.tk-pm-remove-member', function () {
@@ -31,6 +32,37 @@ jQuery(document).ready(function () {
         jQuery('#' + id).remove();
     });
 
+    do_the_search();
+
+    jQuery('#tk-pm-search').unbind('mouseenter mouseleave');
+    jQuery('#tk-pm-search').off('hover');
+});
+
+function formatUser(user) {
+    if (user.loading) return user;
+
+    return formatUser_html(user);
+}
+
+function formatUser_html(user) {
+
+    markup = '<li id="' + user.id + '" class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
+        '<div class="select2-result-user clearfix"> ' +
+        '<div class="select2-result-user__avatar"><img src="' + user.avatar_url + '"></div> ' +
+        '<div class="select2-result-user__meta"> ' +
+        '<div class="select2-result-user__display_name">' + user.display_name + '</div> ' +
+        '<div class="select2-result-user__user_email">' + user.user_email + '</div> ' +
+        '<div class="select2-result-user__actions"> ' +
+        '<div class="select2-result-user__add"><a data-id="' + user.id + '" data-avatar_url="' + user.avatar_url + '" data-display_name="' + user.display_name + '" data-user_email="' + user.user_email + '" data-id="' + user.id + '"href="#" class="tk-pm-add-member">Add Member</a> </div> ' +
+        '</div> ' +
+        '</div> ' +
+        '</div> ' +
+        '<input type="hidden" value="' + user.id + '" name="_tk_post_members[]">' +
+        '</li>';
+    return markup;
+}
+
+function do_the_search(){
     jQuery("#tk-pm-search").pumSelect2({
 
         placeholder: "Search for user",
@@ -74,30 +106,4 @@ jQuery(document).ready(function () {
         },
         minimumInputLength: 1,
     });
-    jQuery('#tk-pm-search').unbind('mouseenter mouseleave');
-    jQuery('#tk-pm-search').off('hover');
-});
-
-function formatUser(user) {
-    if (user.loading) return user;
-
-    return formatUser_html(user);
-}
-
-function formatUser_html(user) {
-
-    markup = '<li id="' + user.id + '" class="select2-results__option select2-results__option--highlighted" role="treeitem" aria-selected="false"> ' +
-        '<div class="select2-result-user clearfix"> ' +
-        '<div class="select2-result-user__avatar"><img src="' + user.avatar_url + '"></div> ' +
-        '<div class="select2-result-user__meta"> ' +
-        '<div class="select2-result-user__display_name">' + user.display_name + '</div> ' +
-        '<div class="select2-result-user__user_email">' + user.user_email + '</div> ' +
-        '<div class="select2-result-user__actions"> ' +
-        '<div class="select2-result-user__add"><a data-id="' + user.id + '" data-avatar_url="' + user.avatar_url + '" data-display_name="' + user.display_name + '" data-user_email="' + user.user_email + '" data-id="' + user.id + '"href="#" class="tk-pm-add-member">Add Member</a> </div> ' +
-        '</div> ' +
-        '</div> ' +
-        '</div> ' +
-        '<input type="hidden" value="' + user.id + '" name="_tk_post_members[]">' +
-        '</li>';
-    return markup;
 }

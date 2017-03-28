@@ -40,9 +40,7 @@ function tk_pm_post_edit_metabox() {
 	<?php if ( isset( $post_members ) && is_array( $post_members ) ) { ?>
 		<?php foreach ( $post_members as $member ) {
 			$user_data = get_userdata( $member );
-            if(!is_object($user_data)) continue;
-			?>
-
+            if(!is_object($user_data)) continue; ?>
 
 			<li id="<?php echo $user_data->ID ?>"
 			    class="select2-results__option select2-results__option--highlighted" role="treeitem"
